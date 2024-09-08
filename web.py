@@ -15,6 +15,16 @@ class WebRequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(self.get_response().encode("utf-8"))
 
+        ## Agregué una condicional para que el servidor regrese el contenido del archivo en esa ruta
+        if self.path == '/': 
+        ## Con esta parte abrimos el archivo de home.html como archivo de lectura
+            with open('home.html', 'r') as file:
+                content = file.read()
+            self.wfile.write(content.encode("utf-8"))
+        ## En caso de que no esté '/' en el path, nos regresaría el error 404
+        else:
+            self.send_response(404)
+
     def get_response(self):
         ## Para este caso, mandé a pedir el url y dividí el path (que era: proyecto/web-uno?autor=ana)
         ## de manera que me quedara de un lado "proyecto" y del otro "web-uno?autor=ana". 
