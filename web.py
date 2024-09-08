@@ -1,6 +1,16 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import parse_qsl, urlparse
 
+## Implementación de Diccionario 
+contenido = {
+    '/': """<html>...</html>""",
+    '/proyecto/web-uno': """
+<html>
+  <h1>Proyecto: web-uno</h1>
+</html>""",
+    '/proyecto/web-dos': """<html>...</html>""",
+    '/proyecto/web-tres': """<html>...</html>""",
+}
 
 class WebRequestHandler(BaseHTTPRequestHandler):
     def url(self):
@@ -14,6 +24,9 @@ class WebRequestHandler(BaseHTTPRequestHandler):
         self.send_header("Content-Type", "text/html")
         self.end_headers()
         self.wfile.write(self.get_response().encode("utf-8"))
+
+        response_content = contenido.get(self.path, "<html><h1>404 Not Found</h1></html>")
+        self.wfile.write(response_content.encode("utf-8"))
 
         ## Agregué una condicional para que el servidor regrese el contenido del archivo en esa ruta
         if self.path == '/': 
