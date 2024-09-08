@@ -25,7 +25,8 @@ class WebRequestHandler(BaseHTTPRequestHandler):
 """
 
 
+## En esta parte cambié el puerto 8080 al 8000
 if __name__ == "__main__":
     print("Starting server")
-    server = HTTPServer(("localhost", 8080), WebRequestHandler)
+    server = HTTPServer(("localhost", 8000), WebRequestHandler)
     server.serve_forever()
