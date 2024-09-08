@@ -16,8 +16,18 @@ class WebRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(self.get_response().encode("utf-8"))
 
     def get_response(self):
+        ## Para este caso, mandé a pedir el url y dividí el path (que era: proyecto/web-uno?autor=ana)
+        ## de manera que me quedara de un lado "proyecto" y del otro "web-uno?autor=ana". 
+        ## Luego de ello puse un [-1] para indicar de que lado se iba a tomar la información. 
+        proyecto = self.url().path.split('/')[-1]
+        
+        ## En esta parte mandé a pedir el autor que indicaba en el path. 
+        autor = self.query_data().get('autor', '')
+        
         return f"""
-    <h1> Hola Web </h1>
+        ## Modifiqué esta primera línea de h1 con los títulos por defecto "Proyecto" y "Autor",
+        ## luego los mandé a llamar {} desde lo que hice en la parte anterior, al extraer la información. 
+    <h1> Proyecto: {proyecto} Autor: {autor} </h1>
     <p> URL Parse Result : {self.url()}         </p>
     <p> Path Original: {self.path}         </p>
     <p> Headers: {self.headers}      </p>
