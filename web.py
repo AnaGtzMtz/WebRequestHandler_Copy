@@ -25,6 +25,7 @@ class WebRequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(self.get_response().encode("utf-8"))
 
+        ## Para recuperar el contenido de la ruta 
         response_content = contenido.get(self.path, "<html><h1>404 Not Found</h1></html>")
         self.wfile.write(response_content.encode("utf-8"))
 
